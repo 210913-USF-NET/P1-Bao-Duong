@@ -12,7 +12,7 @@ namespace UI {
 
             do {
                 Console.WriteLine("\nSign in menu:");
-                Console.WriteLine("[0] Log in as existing customer");
+                Console.WriteLine("\n[0] Log in as existing customer");
                 Console.WriteLine("[1] Sign up as new customer");
                 Console.WriteLine("[x] Exit");
 

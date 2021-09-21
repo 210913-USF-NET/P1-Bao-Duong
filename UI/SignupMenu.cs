@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using StoreBL;
 using Models;
 
@@ -19,19 +20,37 @@ namespace UI {
         }
 
         private void CreateUser() {
-            User newUser = new User();
+            Username newUser = new Username();
+            Password newPass = new Password();
+            List<Username> getUser = _bl.GetAllUsername();
+            string name = "";
+            string pass = "";
 
-            inputName:
+            Console.WriteLine("\nPlease enter a username and password");
 
-            Console.WriteLine("Username: ");
+            inputName:            
+            Console.Write("\nUsername: ");
+
+            name = Console.ReadLine();
 
             try {
-                newUser.UserName = Console.ReadLine();
+                newUser.User = name;
             }
             catch (InputInvalidException e) {
-                Console.WriteLine(e);
+                Console.WriteLine(e.Message);
                 goto inputName;
             }
+
+            Console.Write("\nPassword: ");
+            pass = Console.ReadLine();
+
+            newPass.Pass = pass;
+
+            _bl.AddUsername(newUser);
+            _bl.AddPassword(newPass);
+
+            Console.Clear();
+            Console.WriteLine("You've successfully created your account!");
         }
     }
 }
