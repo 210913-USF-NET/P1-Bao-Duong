@@ -23,6 +23,7 @@ namespace UI {
             Username newUser = new Username();
             Password newPass = new Password();
             List<Username> getUser = _bl.GetAllUsername();
+
             string name = "";
             string pass = "";
 
@@ -31,10 +32,19 @@ namespace UI {
             inputName:            
             Console.Write("\nUsername: ");
 
-            name = Console.ReadLine();
+            name = Console.ReadLine().ToLower();
 
             try {
-                newUser.User = name;
+
+                foreach (Username user in getUser) {
+                    if (name == user.ToString()) {
+                        Console.WriteLine("This username is already taken!");
+                        goto inputName;
+                    }
+                    else {
+                        newUser.User = name;
+                    }
+                }               
             }
             catch (InputInvalidException e) {
                 Console.WriteLine(e.Message);
