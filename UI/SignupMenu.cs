@@ -20,12 +20,12 @@ namespace UI {
         }
 
         private void CreateUser() {
-            Username newUser = new Username();
-            Password newPass = new Password();
-            List<Username> getUser = _bl.GetAllUsername();
+            Customer newCust = new Customer();
+            List<Customer> getUser = _bl.GetCustomerList();
 
             string name = "";
             string pass = "";
+            string email = "";
 
             Console.WriteLine("\nPlease enter a username and password");
 
@@ -34,33 +34,56 @@ namespace UI {
 
             name = Console.ReadLine().ToLower();
 
-            try {
+            for (int i = 0; i < getUser.Count; i++) {
+                if (name == getUser[i].Username) {
+                    Console.WriteLine("Username is taken, please try again!");
+                    goto inputName;
+                }
+            }
 
-                foreach (Username user in getUser) {
-                    if (name == user.ToString()) {
-                        Console.WriteLine("This username is already taken!");
-                        goto inputName;
-                    }
-                    else {
-                        newUser.User = name;
-                    }
-                }               
+            try {
+                newCust.Username = name;          
             }
             catch (InputInvalidException e) {
                 Console.WriteLine(e.Message);
                 goto inputName;
             }
+            
+            inputEmail:
+            Console.Write("\nEmail: ");
+            email = Console.ReadLine().ToLower();
+
+            try {
+                newCust.Email = email;          
+            }
+            catch (InputInvalidException e) {
+                Console.WriteLine(e.Message);
+                goto inputEmail;
+            }
 
             Console.Write("\nPassword: ");
             pass = Console.ReadLine();
+            
+            newCust.Email = email;
+            newCust.Password = pass;
 
-            newPass.Pass = pass;
+            _bl.AddCustomer(newCust);
 
-            _bl.AddUsername(newUser);
-            _bl.AddPassword(newPass);
+            List<Customer> getNewUser = _bl.GetCustomerList();
 
-            Console.Clear();
-            Console.WriteLine("You've successfully created your account!");
+            for (int i = 0; i < getNewUser.Count; i++) {
+                if (name == getNewUser[i].Username && pass == getNewUser[i].Password) {
+                    Console.WriteLine("\n");
+
+                    DisplayUsername.Id = getNewUser[i].Id;
+                    DisplayUsername.Username = getNewUser[i].Username;
+                    DisplayUsername.Email = getNewUser[i].Email;
+                    break;
+                }
+            }
+
+            MenuFactory.GetMenu("nav").Start();
+            
         }
     }
 }
