@@ -11,59 +11,37 @@ namespace StoreBL
 
         public Bl (IRepo repo) {
             this._repo = repo;
-        } 
-
-        public Customer AddCustomer(Customer customer) {
-            return _repo.AddCustomer(customer);
         }
 
-        public List<Customer> GetCustomerList() {
+        public List<Store> GetStoreList()
+        {
+            return _repo.GetStoreList();
+        }
+
+        public List<Customer> GetCustomerList()
+        {
             return _repo.GetCustomerList();
         }
 
-        public List<Item> GetStore()
+        //-------------------------------------------------------------
+
+        public Store AddStore(Store store)
         {
-            return _repo.GetStore();
+            return _repo.AddStore(store);
         }
 
-        public Item GetOneItemById(int id)
+        public Customer AddCustomer(Customer customer)
         {
-            return _repo.GetOneItemById(id);
+            return _repo.AddCustomer(customer);
         }
 
-        public Store GetOneStoreById(int id)
+        //-------------------------------------------------------------
+
+        public Store DeleteStore(Store store)
         {
-            return _repo.GetOneStoreById(id);
+            return _repo.DeleteStore(store);
         }
 
-        public Order AddOrder(Order order)
-        {
-            return _repo.AddOrder(order);
-        }
-
-        public Order GetOrderById(int id)
-        {
-            return _repo.GetOrderById(id);
-        }
-
-        public List<Store> GetStores()
-        {
-            return _repo.GetStores();
-        }
-
-        public Size UpdateSize(Size size)
-        {
-            return _repo.UpdateSize(size);
-        }
-
-        public List<Customer> SearchCustomer (string search)
-        {
-            return _repo.SearchCustomer(search);
-        }
-
-        public Customer GetOneCustById(int id)
-        {
-            return _repo.GetOneCustById(id);
-        }
+        
     }
 }

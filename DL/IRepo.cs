@@ -4,28 +4,19 @@ using Models;
 namespace DL
 {
     public interface IRepo
-    {   
-        Customer AddCustomer(Customer customer);
+    {
+        List<Store> GetStoreList();
 
         List<Customer> GetCustomerList();
 
-        List<Item> GetStore();
+        //----------------------------------------
 
-        Item GetOneItemById(int id);
-        
-        Store GetOneStoreById(int id);
+        public Store AddStore(Store store);
 
-        Customer GetOneCustById(int id);
+        public Customer AddCustomer(Customer customer);
 
-        Order AddOrder(Order order);
+        //----------------------------------------
 
-        Order GetOrderById(int id);
-
-        List<Store> GetStores();
-
-        Size UpdateSize(Size size);
-
-        List<Customer> SearchCustomer (string search);
-       
+        public Store DeleteStore(Store store);
     }
 }

@@ -7,26 +7,18 @@ namespace StoreBL
 {
     public interface IBl
     {
-        Customer AddCustomer(Customer customer);
-        
+        List<Store> GetStoreList();
+
         List<Customer> GetCustomerList();
 
-        List<Item> GetStore();
+        //----------------------------------------
 
-        Item GetOneItemById(int id);
+        public Store AddStore(Store store);
 
-        Store GetOneStoreById(int id);
+        public Customer AddCustomer(Customer customer);
 
-        Customer GetOneCustById(int id);
+        //----------------------------------------
 
-        Order AddOrder(Order order);
-
-        Order GetOrderById(int id);
-        
-        List<Store> GetStores();
-
-        Size UpdateSize(Size size);
-
-        List<Customer> SearchCustomer (string search);
+        public Store DeleteStore(Store store);
     }
 }
