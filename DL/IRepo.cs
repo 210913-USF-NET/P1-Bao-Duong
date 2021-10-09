@@ -9,6 +9,8 @@ namespace DL
 
         List<Customer> GetCustomerList();
 
+        List<Item> GetItemList();
+
         //----------------------------------------
 
         public Store AddStore(Store store);

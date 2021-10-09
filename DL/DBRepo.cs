@@ -42,6 +42,19 @@ namespace DL
                 }).ToList();
         }
 
+        public List<Item> GetItemList()
+        {
+            return _context.Items
+                .Select(
+                r => new Item()
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    Price = r.Price,
+                    SizeTotal = r.SizeTotal
+                }).ToList();
+        }
+
         //-------------------------------------------------------
 
         public Store AddStore(Store store)

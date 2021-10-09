@@ -44,7 +44,9 @@ namespace WebUI.Controllers
                     return View(customer);
                 }
 
-                return RedirectToAction("Index", "Home");
+                TempData["Username"] = customer.Username;
+
+                return RedirectToAction("Index", "Shop");
             }
             catch
             {

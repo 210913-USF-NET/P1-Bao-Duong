@@ -23,6 +23,11 @@ namespace StoreBL
             return _repo.GetCustomerList();
         }
 
+        public List<Item> GetItemList()
+        {
+            return _repo.GetItemList();
+        }
+
         //-------------------------------------------------------------
 
         public Store AddStore(Store store)

@@ -11,14 +11,16 @@ namespace StoreBL
 
         List<Customer> GetCustomerList();
 
-        //----------------------------------------
-
-        public Store AddStore(Store store);
-
-        public Customer AddCustomer(Customer customer);
+        List<Item> GetItemList();
 
         //----------------------------------------
 
-        public Store DeleteStore(Store store);
+        Store AddStore(Store store);
+
+        Customer AddCustomer(Customer customer);
+
+        //----------------------------------------
+
+        Store DeleteStore(Store store);
     }
 }
