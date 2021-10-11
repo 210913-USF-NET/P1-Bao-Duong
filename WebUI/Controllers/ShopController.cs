@@ -24,13 +24,29 @@ namespace WebUI.Controllers
 
             List<Item> itemList = _bl.GetItemList();
 
+            TempData.Keep();
+
             return View(itemList);
         }
 
         public ActionResult Buy(int id)
         {
+            Item selectedItem = _bl.GetItemSizes(id);
 
+            return View(selectedItem.Size);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Buy(string size, int quant)
+        {
             
+
+            return RedirectToAction("Index", "Shop");
+        }
+
+        public ActionResult Checkout()
+        {
 
             return View();
         }

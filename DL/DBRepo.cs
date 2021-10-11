@@ -89,6 +89,30 @@ namespace DL
             return store;
         }
 
-        
+        //-------------------------------------------------------
+
+        public Item GetItemSizes(int id)
+        {
+            Item itemId = _context.Items
+                .Include(r => r.Size)
+                .FirstOrDefault(r => r.Id == id);
+
+            return new Item()
+            {
+                Id = itemId.Id,
+                Name = itemId.Name,
+                Price = itemId.Price,
+                SizeTotal = itemId.SizeTotal,
+
+                Size = itemId.Size.Select(r => new Size()
+                {
+                    Id = r.Id,
+                    ClothingSize = r.ClothingSize,
+                    SizeQuantity = r.SizeQuantity,
+                    ItemId = r.ItemId
+                }).ToList()
+            };
+        }
+
     }
 }

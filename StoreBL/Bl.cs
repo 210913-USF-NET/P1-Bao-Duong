@@ -28,6 +28,7 @@ namespace StoreBL
             return _repo.GetItemList();
         }
 
+
         //-------------------------------------------------------------
 
         public Store AddStore(Store store)
@@ -47,6 +48,12 @@ namespace StoreBL
             return _repo.DeleteStore(store);
         }
 
-        
+        //-------------------------------------------------------------
+
+        public Item GetItemSizes(int id)
+        {
+            return _repo.GetItemSizes(id);
+        }
+
     }
 }

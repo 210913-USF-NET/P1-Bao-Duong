@@ -22,5 +22,9 @@ namespace StoreBL
         //----------------------------------------
 
         Store DeleteStore(Store store);
+
+        //----------------------------------------
+
+        Item GetItemSizes(int id);
     }
 }

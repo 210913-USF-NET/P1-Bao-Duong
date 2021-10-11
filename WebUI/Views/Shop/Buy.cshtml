@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Models.Size>
+
+@{
+    ViewData["Title"] = "Buy";
+}                                           
+
+<table class="table">
+    <form asp-action="Buy">
+        <div class="d-flex flex-row">
+            <select class="form-control" id="Size" name="Size">
+                <option>Select Size</option>
+                @foreach (var size in Model)
+                {
+                    <option name="size">@size.ClothingSize</option>
+                }
+            </select>
+
+            <div class="form-group">
+                <input class="form-control" name="quant"/>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Add to cart" class="btn btn-primary" />
+            </div>
+        </div>       
+    </form>
+</table>

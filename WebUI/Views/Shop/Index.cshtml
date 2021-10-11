@@ -2,6 +2,9 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    string username = (string)TempData["Username"];
+    TempData["Username"] = username;
 }
 
 <table class="table">

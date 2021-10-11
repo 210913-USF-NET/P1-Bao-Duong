@@ -13,12 +13,16 @@ namespace DL
 
         //----------------------------------------
 
-        public Store AddStore(Store store);
+        Store AddStore(Store store);
 
-        public Customer AddCustomer(Customer customer);
+        Customer AddCustomer(Customer customer);
 
         //----------------------------------------
 
-        public Store DeleteStore(Store store);
+        Store DeleteStore(Store store);
+
+        //----------------------------------------
+
+        Item GetItemSizes(int id);
     }
 }
