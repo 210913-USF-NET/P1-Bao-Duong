@@ -14,5 +14,6 @@ namespace DL
         public DbSet<Order> Orders { get; set; }
         public DbSet<Size> Sizes { get; set; }
         public DbSet<Store> Stores { get; set; }
+        public DbSet<CheckOut> CheckOuts { get; set; }
     }
 }

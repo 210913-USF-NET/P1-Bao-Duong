@@ -33,6 +33,9 @@ namespace WebUI.Controllers
         {
             Item selectedItem = _bl.GetItemSizes(id);
 
+            TempData["Item"] = selectedItem.Name;
+            TempData["Price"] = (int)selectedItem.Price;
+
             return View(selectedItem.Size);
         }
 
@@ -40,15 +43,22 @@ namespace WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Buy(string size, int quant)
         {
-            
+            CheckOut checkOut = new CheckOut();
+
+            checkOut.Item = (string)TempData["Item"];
+            checkOut.Price = Convert.ToDecimal(TempData["Price"]);
+            checkOut.Size = size;
+            checkOut.Quantity = quant;
+
+            _bl.AddCheckOut(checkOut);
 
             return RedirectToAction("Index", "Shop");
         }
 
         public ActionResult Checkout()
         {
-
-            return View();
+            List<CheckOut> checkOutList = _bl.GetCheckOutList();
+            return View(checkOutList);
         }
 
         // GET: ShopController/Details/5

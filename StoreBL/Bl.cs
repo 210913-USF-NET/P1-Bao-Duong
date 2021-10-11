@@ -28,6 +28,11 @@ namespace StoreBL
             return _repo.GetItemList();
         }
 
+        public List<CheckOut> GetCheckOutList()
+        {
+            return _repo.GetCheckOutList();
+        }
+
 
         //-------------------------------------------------------------
 
@@ -39,6 +44,11 @@ namespace StoreBL
         public Customer AddCustomer(Customer customer)
         {
             return _repo.AddCustomer(customer);
+        }
+
+        public CheckOut AddCheckOut(CheckOut checkOut)
+        {
+            return _repo.AddCheckOut(checkOut);
         }
 
         //-------------------------------------------------------------

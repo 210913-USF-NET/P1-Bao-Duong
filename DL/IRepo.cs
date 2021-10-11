@@ -11,11 +11,15 @@ namespace DL
 
         List<Item> GetItemList();
 
+        List<CheckOut> GetCheckOutList();
+
         //----------------------------------------
 
         Store AddStore(Store store);
 
         Customer AddCustomer(Customer customer);
+
+        CheckOut AddCheckOut(CheckOut checkOut);
 
         //----------------------------------------
 

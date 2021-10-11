@@ -55,6 +55,21 @@ namespace DL
                 }).ToList();
         }
 
+        public List<CheckOut> GetCheckOutList()
+        {
+            return _context.CheckOuts
+                .Select(
+                r => new CheckOut()
+                {
+                    Id = r.Id,
+                    Item = r.Item,
+                    Price = r.Price,
+                    Quantity = r.Quantity,
+                    Size = r.Size,
+                    TotalQuantity = r.TotalQuantity
+                }).ToList();
+        }
+
         //-------------------------------------------------------
 
         public Store AddStore(Store store)
@@ -75,6 +90,16 @@ namespace DL
             _context.ChangeTracker.Clear();
 
             return customer;
+        }
+
+        public CheckOut AddCheckOut(CheckOut checkOut)
+        {
+            checkOut = _context.Add(checkOut).Entity;
+
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+
+            return checkOut;
         }
 
         //-------------------------------------------------------
