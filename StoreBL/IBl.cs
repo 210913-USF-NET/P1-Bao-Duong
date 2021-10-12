@@ -19,6 +19,8 @@ namespace StoreBL
 
         List<CheckOut> GetCheckOutList();
 
+        List<Order> GetOrderList();
+
         //----------------------------------------
 
         Store AddStore(Store store);
@@ -28,6 +30,10 @@ namespace StoreBL
         CheckOut AddCheckOut(CheckOut checkOut);
 
         Order AddOrder(Order order);
+
+        //----------------------------------------
+
+        Size UpdateSize(Size size);
 
         //----------------------------------------
 
@@ -42,6 +48,8 @@ namespace StoreBL
         CheckOut GetCheckOutById(int id);
 
         Store GetStoreItem(int id);
+
+        Order GetOrderStore(int id);
 
         //----------------------------------------
     }

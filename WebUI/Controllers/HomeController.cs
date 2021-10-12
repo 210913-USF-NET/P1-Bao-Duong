@@ -25,6 +25,7 @@ namespace WebUI.Controllers
 
         public IActionResult Index(bool flag)
         {
+
             if (flag == true)
             {
                 TempData["Username"] = null;
@@ -33,10 +34,8 @@ namespace WebUI.Controllers
 
             List<CheckOut> checkOutList = _bl.GetCheckOutList();
 
-            foreach(CheckOut item in checkOutList)
-            {
-                _bl.DeleteCheckOut(item.Id);
-            }
+            TempData["Cart"] = _bl.GetCheckOutList().Count;
+            TempData.Keep("Cart");
 
             return View();
         }

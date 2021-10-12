@@ -80,7 +80,21 @@ namespace DL
                     Price = r.Price,
                     Quantity = r.Quantity,
                     Size = r.Size,
-                    TotalPrice = r.TotalPrice
+                    TotalPrice = r.TotalPrice,
+                    CustomerId = r.CustomerId,
+                    StoreId = r.StoreId
+                }).ToList();
+        }
+
+        public List<Order> GetOrderList()
+        {
+            return _context.Orders
+                .Select(
+                r => new Order()
+                {
+                    Id = r.Id,
+                    CustomerId = r.CustomerId,
+                    StoreId = r.StoreId
                 }).ToList();
         }
 
@@ -124,6 +138,27 @@ namespace DL
             _context.ChangeTracker.Clear();
 
             return order;
+        }
+
+        //-------------------------------------------------------
+
+        public Size UpdateSize(Size size)
+        {
+            Size updateSize = (
+                from i in _context.Sizes
+                where i.ItemId == size.ItemId && i.ClothingSize == size.ClothingSize
+                select i)
+                .FirstOrDefault();
+
+            updateSize.SizeQuantity = size.SizeQuantity;
+
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+
+            return new Size()
+            {
+                SizeQuantity = updateSize.SizeQuantity
+            };
         }
 
         //-------------------------------------------------------
@@ -209,13 +244,21 @@ namespace DL
             };
         }
 
-        //-------------------------------------------------------
-
-        public void GetForeignKey(int id)
+        public Order GetOrderStore(int id)
         {
-            _context.Items
-                .Where(r => r.Id == id)
-                .FirstOrDefault();
+            Order order = _context.Orders
+                .Include(r => r.Stores)
+                .FirstOrDefault(r => r.Id == id);
+
+            return new Order()
+            {
+                Id = order.Id,
+                CustomerId = order.CustomerId,
+                StoreId = order.StoreId,
+                Stores = order.Stores
+            };
         }
+
+        //-------------------------------------------------------
     }
 }

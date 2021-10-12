@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+
+    var username = TempData["Username"];
+    TempData.Keep();
+}
+
+<h1>Customer</h1>
+
+<br />
+
+<form asp-action="Index">
+    <div class="d-flex flex-row">
+        <div class="form-group">
+            <input class="form-control" name="name" />
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Search" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Username != (string)TempData["Username"])
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Username)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.ActionLink("View history", "Order", new { id=item.Id })
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

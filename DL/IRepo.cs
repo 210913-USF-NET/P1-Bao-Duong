@@ -17,6 +17,8 @@ namespace DL
 
         List<CheckOut> GetCheckOutList();
 
+        List<Order> GetOrderList();
+
         //----------------------------------------
 
         Store AddStore(Store store);
@@ -26,6 +28,10 @@ namespace DL
         CheckOut AddCheckOut(CheckOut checkOut);
 
         Order AddOrder(Order order);
+
+        //----------------------------------------
+
+        Size UpdateSize(Size size);
 
         //----------------------------------------
 
@@ -40,6 +46,8 @@ namespace DL
         CheckOut GetCheckOutById(int id);
 
         Store GetStoreItem(int id);
+
+        Order GetOrderStore(int id);
 
         //----------------------------------------
     }

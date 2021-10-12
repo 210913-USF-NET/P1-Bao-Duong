@@ -40,6 +40,10 @@ namespace StoreBL
             return _repo.GetCheckOutList();
         }
 
+        public List<Order> GetOrderList()
+        {
+            return _repo.GetOrderList();
+        }
 
         //-------------------------------------------------------------
 
@@ -61,6 +65,13 @@ namespace StoreBL
         public Order AddOrder(Order order)
         {
             return _repo.AddOrder(order);
+        }
+
+        //-------------------------------------------------------------
+
+        public Size UpdateSize(Size size)
+        {
+            return _repo.UpdateSize(size);
         }
 
         //-------------------------------------------------------------
@@ -90,6 +101,11 @@ namespace StoreBL
         public Store GetStoreItem(int id)
         {
             return _repo.GetStoreItem(id);
+        }
+
+        public Order GetOrderStore(int id)
+        {
+            return _repo.GetOrderStore(id);
         }
 
         //-------------------------------------------------------------
