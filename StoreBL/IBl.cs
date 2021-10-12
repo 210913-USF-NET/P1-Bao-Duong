@@ -21,6 +21,8 @@ namespace StoreBL
 
         List<Order> GetOrderList();
 
+        List<Size> GetSizeList();
+
         //----------------------------------------
 
         Store AddStore(Store store);

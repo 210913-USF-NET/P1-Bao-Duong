@@ -98,6 +98,19 @@ namespace DL
                 }).ToList();
         }
 
+        public List<Size> GetSizeList()
+        {
+            return _context.Sizes
+                .Select(
+                r => new Size()
+                {
+                    Id = r.Id,
+                    ClothingSize = r.ClothingSize,
+                    SizeQuantity = r.SizeQuantity,
+                    ItemId = r.ItemId
+                }).ToList();
+        }
+
         //-------------------------------------------------------
 
         public Store AddStore(Store store)

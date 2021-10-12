@@ -30,6 +30,7 @@ namespace WebUI.Controllers
         {
             try
             {
+                List<Customer> customerList = _bl.GetCustomerList();
                 bool isUsername = CorrectUsername(customer.Username);
                 bool isPassword = CorrectPassword(customer.Password);
 
@@ -44,10 +45,20 @@ namespace WebUI.Controllers
                     return View(customer);
                 }
 
-                TempData["Username"] = customer.Username;
-                TempData.Keep("Username");
+                foreach (Customer cust in customerList)
+                {
+                    if (customer.Username == cust.Username && customer.Password == cust.Password)
+                    {
+                        TempData["Username"] = customer.Username;
+                        TempData.Keep("Username");
 
-                return RedirectToAction("Index", "Shop");
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+
+                ModelState.AddModelError("UsernameError", "Username is Incorrect");
+                ModelState.AddModelError("PasswordError", "Password is Incorrect");
+                return View(customer);
             }
             catch
             {
@@ -69,7 +80,7 @@ namespace WebUI.Controllers
             try
             {
                 if (ModelState.IsValid)
-                {
+                {    
                     bool isUsername = UsernameExist(customer.Username);
                     bool isEmail = EmailExist(customer.Email);
 

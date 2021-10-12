@@ -45,6 +45,11 @@ namespace StoreBL
             return _repo.GetOrderList();
         }
 
+        public List<Size> GetSizeList()
+        {
+            return _repo.GetSizeList();
+        }
+
         //-------------------------------------------------------------
 
         public Store AddStore(Store store)

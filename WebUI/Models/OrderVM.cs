@@ -13,10 +13,6 @@ namespace WebUI.Models
 
         public decimal Price { get; set; }
 
-        public string Size { get; set; }
-
-        public int Quantity { get; set; }
-
         public string Address { get; set; }
 
         public string City { get; set; }

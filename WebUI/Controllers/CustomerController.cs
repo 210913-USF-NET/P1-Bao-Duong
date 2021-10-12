@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebUI.Models;
 
 namespace WebUI.Controllers
 {
@@ -38,6 +39,8 @@ namespace WebUI.Controllers
         public ActionResult Order(int id)
         {
             List<Order> orderList = _bl.GetOrderList();
+            OrderVM orderVM = new OrderVM();
+            List<OrderVM> orderVMList = new List<OrderVM>();
 
             foreach(Order order in orderList)
             {
@@ -45,14 +48,30 @@ namespace WebUI.Controllers
                 {
                     Order selectedOrder = _bl.GetOrderStore(order.Id);
 
-                    TempData["Name"] = selectedOrder.Customers.Username;
+                    Store selectedStore = _bl.GetStoreItem(selectedOrder.StoreId);
 
+                    orderVM.Username = selectedOrder.Customers.Username;
+                    orderVM.Item = selectedStore.Item[0].Name;
+                    orderVM.Price = selectedStore.Item[0].Price;
+                    orderVM.Address = selectedStore.Address;
+                    orderVM.City = selectedStore.City;
+                    orderVM.State = selectedStore.State;
+
+                    orderVMList.Add(new OrderVM()
+                    {
+                        Username = orderVM.Username,
+                        Item = orderVM.Item,
+                        Price = orderVM.Price,
+                        Address = orderVM.Address,
+                        City = orderVM.City,
+                        State = orderVM.State
+                    });
                 }
 
                 
             }
 
-            return View(orderList);
+            return View(orderVMList);
         }
 
         // POST: CustomerController/Delete/5

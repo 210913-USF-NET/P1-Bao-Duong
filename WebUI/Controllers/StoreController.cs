@@ -26,80 +26,38 @@ namespace WebUI.Controllers
             return View(storeList);
         }
 
-        // GET: StoreController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Inventory(int id)
         {
-            return View();
+            Store selectedStore = _bl.GetStoreItem(id);
+
+            return View(selectedStore.Item);
         }
 
-        // GET: StoreController/Create
-        public ActionResult Create()
+        public ActionResult Size(int id)
         {
-            return View();
+            Item selectedItem = _bl.GetItemSizes(id);
+
+            return View(selectedItem.Size);
         }
 
-        // POST: StoreController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Store store)
+        public ActionResult Size(int id, int refill)
         {
-            try
+            List<Size> sizeList = _bl.GetSizeList();
+
+            foreach(Size size in sizeList)
             {
-                if (ModelState.IsValid)
+                if (size.Id == id)
                 {
-                    _bl.AddStore(store);
-                    return RedirectToAction(nameof(Index));
+                    size.SizeQuantity = refill;
+                    _bl.UpdateSize(size);
+
+                    return RedirectToAction("Size", "Store");
                 }
-
-                return View();
             }
-            catch
-            {
-                return View();
-            }
-        }
 
-        // GET: StoreController/Edit/5
-        public ActionResult Edit(int id)
-        {
             return View();
-        }
-
-        // POST: StoreController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: StoreController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: StoreController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(Store store)
-        {
-            try
-            {
-                _bl.DeleteStore(store);
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
     }
 }
