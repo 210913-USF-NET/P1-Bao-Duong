@@ -5,6 +5,10 @@ namespace DL
 {
     public interface IRepo
     {
+        List<Customer> SearchCustomer(string name);
+
+        //----------------------------------------
+
         List<Store> GetStoreList();
 
         List<Customer> GetCustomerList();
@@ -21,12 +25,22 @@ namespace DL
 
         CheckOut AddCheckOut(CheckOut checkOut);
 
+        Order AddOrder(Order order);
+
         //----------------------------------------
 
         Store DeleteStore(Store store);
 
+        void DeleteCheckOut(int id);
+
         //----------------------------------------
 
         Item GetItemSizes(int id);
+
+        CheckOut GetCheckOutById(int id);
+
+        Store GetStoreItem(int id);
+
+        //----------------------------------------
     }
 }

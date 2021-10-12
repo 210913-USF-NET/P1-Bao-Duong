@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Models;
+using StoreBL;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,13 +15,29 @@ namespace WebUI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private IBl _bl;
+
+        public HomeController(ILogger<HomeController> logger, IBl bl)
         {
             _logger = logger;
+            _bl = bl;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(bool flag)
         {
+            if (flag == true)
+            {
+                TempData["Username"] = null;
+                flag = false;
+            }
+
+            List<CheckOut> checkOutList = _bl.GetCheckOutList();
+
+            foreach(CheckOut item in checkOutList)
+            {
+                _bl.DeleteCheckOut(item.Id);
+            }
+
             return View();
         }
 

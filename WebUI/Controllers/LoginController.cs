@@ -85,7 +85,7 @@ namespace WebUI.Controllers
                     }
 
                     _bl.AddCustomer(customer);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Login");
                 }
 
                 return View();

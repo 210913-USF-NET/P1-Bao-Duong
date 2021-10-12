@@ -13,6 +13,13 @@ namespace StoreBL
             this._repo = repo;
         }
 
+        public List<Customer> SearchCustomer(string name)
+        {
+            return _repo.SearchCustomer(name);
+        }
+
+        //-------------------------------------------------------------
+
         public List<Store> GetStoreList()
         {
             return _repo.GetStoreList();
@@ -51,11 +58,21 @@ namespace StoreBL
             return _repo.AddCheckOut(checkOut);
         }
 
+        public Order AddOrder(Order order)
+        {
+            return _repo.AddOrder(order);
+        }
+
         //-------------------------------------------------------------
 
         public Store DeleteStore(Store store)
         {
             return _repo.DeleteStore(store);
+        }
+
+        public void DeleteCheckOut(int id)
+        {
+            _repo.DeleteCheckOut(id);
         }
 
         //-------------------------------------------------------------
@@ -65,5 +82,16 @@ namespace StoreBL
             return _repo.GetItemSizes(id);
         }
 
+        public CheckOut GetCheckOutById(int id)
+        {
+            return _repo.GetCheckOutById(id);
+        }
+
+        public Store GetStoreItem(int id)
+        {
+            return _repo.GetStoreItem(id);
+        }
+
+        //-------------------------------------------------------------
     }
 }

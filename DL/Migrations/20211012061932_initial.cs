@@ -17,7 +17,9 @@ namespace DL.Migrations
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
                     Size = table.Column<string>(type: "text", nullable: true),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
-                    TotalQuantity = table.Column<int>(type: "integer", nullable: false)
+                    TotalPrice = table.Column<int>(type: "integer", nullable: false),
+                    CustomerId = table.Column<int>(type: "integer", nullable: false),
+                    StoreId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,7 +64,6 @@ namespace DL.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
-                    SizeTotal = table.Column<int>(type: "integer", nullable: false),
                     StoreId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>

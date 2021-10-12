@@ -19,12 +19,21 @@ namespace WebUI.Controllers
         }
 
         // GET: ShopController
-        public ActionResult Index()
+        public ActionResult Index(bool flag)
         {
+            if (flag == true)
+            {
+                List<CheckOut> checkOutList = _bl.GetCheckOutList();
+
+                foreach(CheckOut item in checkOutList)
+                {
+                    _bl.DeleteCheckOut(item.Id);
+                }
+
+                flag = false;
+            }
 
             List<Item> itemList = _bl.GetItemList();
-
-            TempData.Keep();
 
             return View(itemList);
         }
@@ -35,7 +44,7 @@ namespace WebUI.Controllers
 
             TempData["Item"] = selectedItem.Name;
             TempData["Price"] = (int)selectedItem.Price;
-
+            
             return View(selectedItem.Size);
         }
 
@@ -50,6 +59,10 @@ namespace WebUI.Controllers
             checkOut.Size = size;
             checkOut.Quantity = quant;
 
+            List<Customer> customer = _bl.SearchCustomer((string)TempData["Username"]);
+
+            checkOut.CustomerId = customer[0].Id;
+
             _bl.AddCheckOut(checkOut);
 
             return RedirectToAction("Index", "Shop");
@@ -61,73 +74,13 @@ namespace WebUI.Controllers
             return View(checkOutList);
         }
 
-        // GET: ShopController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Receipt()
         {
-            return View();
-        }
+            List<CheckOut> checkOutList = _bl.GetCheckOutList();
+            Order order = new Order();
 
-        // GET: ShopController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: ShopController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ShopController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: ShopController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: ShopController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: ShopController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            return View(checkOutList);
         }
     }
 }

@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Models.CheckOut>
+
+@{
+    ViewData["Title"] = "Receipt";
+
+    var username = TempData["Username"];
+    TempData.Keep();
+}
+
+<h1>Receipt</h1>
+
+<br />
+<p><b>Username:</b> @TempData["Username"]</p>
+
+@foreach (var item in Model)
+{
+    <p><b>Item: </b>@Html.DisplayFor(modelIte => item.Item)</p>
+    <p><b>Price: </b>@Html.DisplayFor(modelIte => item.Price)</p>
+    <p><b>Size: </b>@Html.DisplayFor(modelIte => item.Size)</p>
+    <p><b>Quantity: </b>@Html.DisplayFor(modelIte => item.Quantity)</p>
+    <hr />
+}
+
+@Html.ActionLink("Back to list", "Index", "Shop", new { flag = true })

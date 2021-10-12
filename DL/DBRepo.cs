@@ -16,6 +16,21 @@ namespace DL
             this._context = context;
         }
 
+        public List<Customer> SearchCustomer(string name)
+        {
+            return _context.Customers
+                .Where(r => r.Username.Contains(name))
+                .Select(r => new Customer()
+                {
+                    Id = r.Id,
+                    Username = r.Username,
+                    Email = r.Email,
+                    Password = r.Password
+                }).ToList();
+        }
+
+        //-------------------------------------------------------
+
         public List<Store> GetStoreList()
         {
             return _context.Stores
@@ -51,7 +66,6 @@ namespace DL
                     Id = r.Id,
                     Name = r.Name,
                     Price = r.Price,
-                    SizeTotal = r.SizeTotal
                 }).ToList();
         }
 
@@ -66,7 +80,7 @@ namespace DL
                     Price = r.Price,
                     Quantity = r.Quantity,
                     Size = r.Size,
-                    TotalQuantity = r.TotalQuantity
+                    TotalPrice = r.TotalPrice
                 }).ToList();
         }
 
@@ -102,6 +116,16 @@ namespace DL
             return checkOut;
         }
 
+        public Order AddOrder(Order order)
+        {
+            order = _context.Add(order).Entity;
+
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
+
+            return order;
+        }
+
         //-------------------------------------------------------
 
         public Store DeleteStore(Store store)
@@ -112,6 +136,13 @@ namespace DL
             _context.ChangeTracker.Clear();
 
             return store;
+        }
+
+        public void DeleteCheckOut(int id)
+        {
+            _context.CheckOuts.Remove(GetCheckOutById(id));
+            _context.SaveChanges();
+            _context.ChangeTracker.Clear();
         }
 
         //-------------------------------------------------------
@@ -127,7 +158,6 @@ namespace DL
                 Id = itemId.Id,
                 Name = itemId.Name,
                 Price = itemId.Price,
-                SizeTotal = itemId.SizeTotal,
 
                 Size = itemId.Size.Select(r => new Size()
                 {
@@ -139,5 +169,53 @@ namespace DL
             };
         }
 
+        public CheckOut GetCheckOutById(int id)
+        {
+            CheckOut checkOut = _context.CheckOuts
+                .AsNoTracking()
+                .FirstOrDefault(r => r.Id == id);
+
+            return new CheckOut()
+            {
+                Id = checkOut.Id,
+                Item = checkOut.Item,
+                Price = checkOut.Price,
+                Quantity = checkOut.Quantity,
+                Size = checkOut.Size,
+                TotalPrice = checkOut.TotalPrice
+            };
+        }
+
+        public Store GetStoreItem(int id)
+        {
+            Store store = _context.Stores
+                .Include(r => r.Item)
+                .FirstOrDefault(r => r.Id == id);
+
+            return new Store()
+            {
+                Id = store.Id,
+                Address = store.Address,
+                City = store.City,
+                State = store.State,
+
+                Item = store.Item.Select(r => new Item()
+                {
+                    Id = r.Id,
+                    Name = r.Name,
+                    Price = r.Price,
+                    Size = r.Size
+                }).ToList()
+            };
+        }
+
+        //-------------------------------------------------------
+
+        public void GetForeignKey(int id)
+        {
+            _context.Items
+                .Where(r => r.Id == id)
+                .FirstOrDefault();
+        }
     }
 }

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DL.Migrations
 {
     [DbContext(typeof(InvincibleDBContext))]
-    [Migration("20211011093206_initial")]
+    [Migration("20211012061932_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace DL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Item")
                         .HasColumnType("text");
 
@@ -40,7 +43,10 @@ namespace DL.Migrations
                     b.Property<string>("Size")
                         .HasColumnType("text");
 
-                    b.Property<int>("TotalQuantity")
+                    b.Property<int>("StoreId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TotalPrice")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
@@ -84,9 +90,6 @@ namespace DL.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
-
-                    b.Property<int>("SizeTotal")
-                        .HasColumnType("integer");
 
                     b.Property<int?>("StoreId")
                         .HasColumnType("integer");

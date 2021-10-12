@@ -2,13 +2,15 @@
 
 @{
     ViewData["Title"] = "Checkout";
+
+    var username = TempData["Username"];
+    TempData.Keep();
 }
 
 <h1>Checkout</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<hr />
+
 <table class="table">
     <thead>
         <tr>
@@ -24,36 +26,48 @@
             <th>
                 @Html.DisplayNameFor(model => model.Quantity)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TotalQuantity)
-            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Size)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quantity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalQuantity)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    var total = 0;
+
+    for (int i = 0; i < Model.ToList().Count; i++)
+    {
+        for (int j = 0; j < Model.ToList()[i].Quantity; j++)
+        {
+            total += (int)Model.ToList()[i].Price;
+        }
+    }
+}
+
+@if (Model.ToList().Count > 0)
+{
+    <p><b>Total: </b>@total.ToString("C")</p>
+
+    <a asp-action="Receipt">Checkout</a>
+}

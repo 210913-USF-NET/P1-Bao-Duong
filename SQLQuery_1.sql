@@ -43,7 +43,7 @@ VALUES ('1234 W Bodega Ave', 'Denver', 'CO');
 INSERT INTO Store (Address, City, State)
 VALUES ('5678 S Belmont Rd', 'Los Angelos', 'CA');
 
-INSERT INTO Item (Name, Price, StoreId)
+INSERT INTO "Items" ("Name", "Price", "StoreId")
 VALUES ('Classic Warm Up Hoodie', 155.00, 1);
 INSERT INTO Item (Name, Price, StoreId)
 VALUES ('Classic Warm Up Pants', 125.00, 2);
@@ -51,8 +51,8 @@ VALUES ('Classic Warm Up Pants', 125.00, 2);
 INSERT INTO Orders (CustomerId, StoreId)
 VALUES (155.00, 1, 1);
 
-INSERT INTO Size (ClothingSize, SizeQuantity, ItemId)
-VALUES ('S', 5, 1), ('M', 5, 1), ('X', 5, 1), ('XL', 5, 1);
+INSERT INTO "Sizes" ("ClothingSize", "SizeQuantity", "ItemId")
+VALUES ('S', 10, 1), ('M', 10, 1), ('X', 10, 1), ('XL', 10, 1);
 INSERT INTO Size (ClothingSize, SizeQuantity, ItemId)
 VALUES ('S', 5, 2), ('M', 5, 2), ('X', 5, 2), ('XL', 5, 2);
 

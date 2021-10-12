@@ -13,8 +13,6 @@ namespace Models
 
         public decimal Price { get; set; }
 
-        public int SizeTotal { get; set; }
-
         public List<Size> Size { get; set; }
 
         public override string ToString()
