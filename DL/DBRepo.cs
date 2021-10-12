@@ -248,6 +248,7 @@ namespace DL
         {
             Order order = _context.Orders
                 .Include(r => r.Stores)
+                .Include(r => r.Customers)
                 .FirstOrDefault(r => r.Id == id);
 
             return new Order()
@@ -255,7 +256,8 @@ namespace DL
                 Id = order.Id,
                 CustomerId = order.CustomerId,
                 StoreId = order.StoreId,
-                Stores = order.Stores
+                Stores = order.Stores,
+                Customers = order.Customers
             };
         }
 

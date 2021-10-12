@@ -35,13 +35,21 @@ namespace WebUI.Controllers
             return View(customer);
         }
 
-        public ActionResult Order()
+        public ActionResult Order(int id)
         {
             List<Order> orderList = _bl.GetOrderList();
 
             foreach(Order order in orderList)
             {
-                Order selectedOrder = _bl.GetOrderStore();
+                if (id == order.CustomerId)
+                {
+                    Order selectedOrder = _bl.GetOrderStore(order.Id);
+
+                    TempData["Name"] = selectedOrder.Customers.Username;
+
+                }
+
+                
             }
 
             return View(orderList);
