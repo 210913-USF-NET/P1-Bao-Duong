@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Serilog;
 using StoreBL;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,7 @@ namespace WebUI.Controllers
         {
             Item selectedItem = _bl.GetItemSizes(id);
 
+            TempData["Id"] = id;
             TempData["Item"] = selectedItem.Name;
             TempData["Price"] = (int)selectedItem.Price;
             
@@ -147,6 +149,7 @@ namespace WebUI.Controllers
 
             TempData["Cart"] = _bl.GetCheckOutList().Count;
 
+            Log.Information("Successful checkout..");
             return View(checkOutList);
         }
 

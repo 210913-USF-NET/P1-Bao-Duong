@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace WebUI.Controllers
 {
@@ -36,11 +37,13 @@ namespace WebUI.Controllers
 
                 if (!isUsername)
                 {
+                    Log.Information("Fail login..");
                     ModelState.AddModelError("UsernameError", "Username is Incorrect");
                     return View(customer);
                 }
                 if (!isPassword)
                 {
+                    Log.Information("Fail login..");
                     ModelState.AddModelError("PasswordError", "Password is Incorrect");
                     return View(customer);
                 }
@@ -49,13 +52,22 @@ namespace WebUI.Controllers
                 {
                     if (customer.Username == cust.Username && customer.Password == cust.Password)
                     {
+                        Log.Information("Successful login..");
                         TempData["Username"] = customer.Username;
                         TempData.Keep("Username");
+
+                        List<CheckOut> checkOutList = _bl.GetCheckOutList();
+
+                        foreach (CheckOut item in checkOutList)
+                        {
+                            _bl.DeleteCheckOut(item.Id);
+                        }
 
                         return RedirectToAction("Index", "Home");
                     }
                 }
 
+                Log.Information("Fail login..");
                 ModelState.AddModelError("UsernameError", "Username is Incorrect");
                 ModelState.AddModelError("PasswordError", "Password is Incorrect");
                 return View(customer);
@@ -86,15 +98,18 @@ namespace WebUI.Controllers
 
                     if (isUsername)
                     {
+                        Log.Information("Fail signup..");
                         ModelState.AddModelError("UsernameExist", "Username is already taken");
                         return View(customer);
                     }
                     if (isEmail)
                     {
+                        Log.Information("Fail signup..");
                         ModelState.AddModelError("EmailExist", "Email is already taken");
                         return View(customer);
                     }
 
+                    Log.Information("Successful user creation..");
                     _bl.AddCustomer(customer);
                     return RedirectToAction("Index", "Login");
                 }

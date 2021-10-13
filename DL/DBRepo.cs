@@ -44,6 +44,11 @@ namespace DL
                 }).ToList();
         }
 
+        /// <summary>
+        /// return a list of Model.Customer
+        /// </summary>
+        /// <param name="id">None</param>
+        /// <returns>Model.Customer</returns>
         public List<Customer> GetCustomerList()
         {
             return _context.Customers
@@ -123,6 +128,11 @@ namespace DL
             return store;
         }
 
+        /// <summary>
+        /// Add customer to datatbase and returns Model.Customer by Customer customer
+        /// </summary>
+        /// <param name="id">Model.Customer customer</param>
+        /// <returns>Model.Customer</returns>
         public Customer AddCustomer(Customer customer)
         {
             customer = _context.Add(customer).Entity;
@@ -195,6 +205,11 @@ namespace DL
 
         //-------------------------------------------------------
 
+        /// <summary>
+        /// returns Model.Item item by referencing size id
+        /// </summary>
+        /// <param name="id">int id</param>
+        /// <returns>Model.Item</returns>
         public Item GetItemSizes(int id)
         {
             Item itemId = _context.Items

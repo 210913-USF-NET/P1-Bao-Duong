@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Serilog;
 using StoreBL;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,7 @@ namespace WebUI.Controllers
                     size.SizeQuantity = refill;
                     _bl.UpdateSize(size);
 
+                    Log.Information("Replenish successful..");
                     return RedirectToAction("Size", "Store");
                 }
             }
