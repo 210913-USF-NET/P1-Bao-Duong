@@ -57,6 +57,12 @@ namespace WebUI.Controllers
             List<Item> itemList = _bl.GetItemList();
             CheckOut checkOut = new CheckOut();
 
+            if (quant < 1)
+            {
+                TempData["msg"] = "<script>alert('Sorry we do not have that quantity');</script>";
+                return RedirectToAction("Buy", "Shop");
+            }
+
             foreach(Item item in itemList)
             {
                 Item selectedItem = _bl.GetItemSizes(item.Id);
