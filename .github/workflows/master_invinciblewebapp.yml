@@ -15,48 +15,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.11
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.x'
           include-prerelease: true
-          
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v1
-        with:
-          path: ~\sonar\cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache SonarCloud scanner
-        id: cache-sonar-scanner
-        uses: actions/cache@v1
-        with:
-          path: .\.sonar\scanner
-          key: ${{ runner.os }}-sonar-scanner
-          restore-keys: ${{ runner.os }}-sonar-scanner
-      
-      - name: Install SonarCloud scanner
-        if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
-        shell: powershell
-        run: |
-          New-Item -Path .\.sonar\scanner -ItemType Directory
-          dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-          
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        shell: powershell
-        run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"210913-USF-NET_P1-Bao-Duong" /o:"210913-usf-net" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.exclusions="**WebUI/wwwroot/lib/**"
-          dotnet build --configuration Release
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
@@ -85,5 +53,5 @@ jobs:
         with:
           app-name: 'InvincibleWebApp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_48031E31221C49B7B320CA634DFCC542 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CFEE0746A8F949D2A3268146D59CF0DF }}
           package: .
