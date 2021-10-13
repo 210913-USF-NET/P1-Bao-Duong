@@ -19,7 +19,7 @@
             </select>
 
             <div class="form-group">
-                <input class="form-control" name="quant" />
+                <input class="form-control" name="quant" value="1" />
                 @Html.Raw(TempData["msg"])
             </div>
 
@@ -29,3 +29,7 @@
         </div>       
     </form>
 </table>
+
+<p>
+    <a asp-action="Index">Back to list</a>
+</p>

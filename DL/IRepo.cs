@@ -23,9 +23,6 @@ namespace DL
 
         //----------------------------------------
 
-
-        //----------------------------------------
-
         Store AddStore(Store store);
 
         Customer AddCustomer(Customer customer);

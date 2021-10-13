@@ -12,7 +12,7 @@ namespace WebUI.Controllers
 {
     public class CustomerController : Controller
     {
-        private IBl _bl;
+        private IBl _bl; 
 
         public CustomerController(IBl bl)
         {
@@ -36,13 +36,13 @@ namespace WebUI.Controllers
             return View(customer);
         }
 
-        public ActionResult Order(int id)
+        public ActionResult Order(int id, bool ascending, bool descending)
         {
             List<Order> orderList = _bl.GetOrderList();
             OrderVM orderVM = new OrderVM();
             List<OrderVM> orderVMList = new List<OrderVM>();
 
-            foreach(Order order in orderList)
+            foreach (Order order in orderList)
             {
                 if (id == order.CustomerId)
                 {
@@ -67,8 +67,21 @@ namespace WebUI.Controllers
                         State = orderVM.State
                     });
                 }
+            }
 
-                
+            if (ascending == true)
+            {
+                List<OrderVM> SortedList = orderVMList.OrderBy(o => o.Price).ToList();
+                ascending = false;
+
+                return View(SortedList);
+            }
+            else if (descending == true)
+            {
+                List<OrderVM> SortedList = orderVMList.OrderByDescending(o => o.Price).ToList();
+                descending = false;
+
+                return View(SortedList);
             }
 
             return View(orderVMList);
