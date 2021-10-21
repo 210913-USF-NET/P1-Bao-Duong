@@ -6,8 +6,6 @@ Invincible Web Store
 
 The store app is a software that helps customers purchase products from your business. Designed with functionality that would make virtual shopping much simpler!
 
-## Getting Started
-
 ### Functionality:
 
 * Add a new customer
