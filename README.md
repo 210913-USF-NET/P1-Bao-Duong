@@ -1,6 +1,6 @@
 # Invincible Web Store
 
-A web store that aims to give consumers luxury sportwears to allow individuals to look and feel at the highest quality when engaging in active activity. 
+A web store that aims to give consumers the luxury sportwears they need to allow individuals to look and feel at the highest quality when engaging in activities. 
 
 ## Description
 
