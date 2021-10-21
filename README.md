@@ -1,5 +1,7 @@
 # Invincible Web Store
 
+A web store that aims to give consumers luxury sportwears to allow individuals to look and feel att he highest quality when engaging in active activity. 
+
 ## Description
 
 The store app is a software that helps customers purchase products from your business. Designed with functionality that would make virtual shopping much simpler!
